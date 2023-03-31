@@ -3,12 +3,12 @@ import Link from 'next/link';
 import Layout, { siteTitle } from '../components/layout';
 import { getAllChapters } from '../lib/chapters';
 import utilStyles from '../styles/utils.module.css';
-import ChapterStyles from '../styles/Chapter.module.css';
+import DeckStyles from '../styles/Deck.module.css';
 
-function Chapter({id, name}) {
+function Deck({id, name}) {
   return (
     <Link href={`/chapters/${id}`}>
-      <div className={ChapterStyles.container}>
+      <div className={DeckStyles.container}>
           {name}
         <br />
           Chapitre {id}
@@ -24,16 +24,11 @@ export default function Home({ chapters }) {
       <Head>
         <title>{siteTitle}</title>
       </Head>
-      {/* <section>
-        <div className={utilStyles.heading}>Ce site est un <b>SRS</b> (Space Repetition System ou Système de Répétition espacée)
-          pour apprendre les kanji présentés dans le livre <i>Les kanji dans la tête</i>.
-        </div>
-      </section> */}
       <section className={`${utilStyles.heading}`}>
         <ul>
           {chapters.map(({ id, name }) => (
             <li key={id}>
-              <Chapter id={id} name={name} />
+              <Deck id={id} name={name} />
             </li>
           ))}
         </ul>
