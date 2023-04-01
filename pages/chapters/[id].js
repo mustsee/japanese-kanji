@@ -3,6 +3,7 @@ import { getAllChaptersId, getChapterData } from "../../lib/chapters";
 import utilStyles from '../../styles/utils.module.css';
 import CardStyles from '../../styles/Card.module.css';
 import { useState } from "react";
+import arrayShuffle from "array-shuffle";
 
 export default function Chapter({ chapterData }) {
   const [currentIndex, setIndex] = useState(0)
@@ -27,20 +28,34 @@ export default function Chapter({ chapterData }) {
     setShowAnswer(false)
   }
 
+  const handleShuffle = () => {
+    const shuffled = arrayShuffle(items);
+    setItems(shuffled);
+  }
+
   return (
     <Layout>
       <section className={`${utilStyles.padding1rem} ${CardStyles.header}`}>
         <span className={CardStyles.title}>{chapterData.name}</span>
         <span className={CardStyles.description}>Chapitre {chapterData.id}</span>
       </section>
+      <section className={`${utilStyles.padding1rem}`}>
+      <div style={{ display: 'flex', justifyContent: 'center'}}>
+          <span 
+            style={{ width: '40%', textAlign: 'center', border: '2px solid #eaeaea', padding: '0.25rem 0', backgroundColor: 'white', cursor: 'pointer'}} 
+            onClick={handleShuffle}
+          >
+            Mélanger
+          </span>
+        </div>
+      </section>
       <section>
-        <div style={{ padding: '2rem 0 2rem 0'}}>
+        <div style={{ padding: '3rem 0 3rem 0'}}>
           <div style={{fontSize: 4  + 'rem', textAlign: 'center'}}>
             {items[currentIndex].kanji}
           </div>
-          <div></div>
         </div>
-        <div style={{ display: 'flex', justifyContent: 'space-between'}}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', padding: '1rem'}}>
           <span 
             style={{ width: '40%', textAlign: 'center', border: '2px solid #eaeaea', padding: '0.25rem 0', backgroundColor: 'white', cursor: 'pointer'}} 
             onClick={handlePrevious}
