@@ -108,8 +108,10 @@ export default function Deck({ deckData }) {
   ) 
 }
 
+const folder = "cdj"
+
 export async function getStaticProps({ params }) {
-  const deckData = await getDeckData("cdj", params.id);
+  const deckData = await getDeckData(folder, params.id);
   return {
     props: {
       deckData,
@@ -118,7 +120,7 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-  const paths = await getAllDecksRoutes();
+  const paths = await getAllDecksRoutes(folder);
   return {
     paths,
     fallback: false,
