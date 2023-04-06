@@ -1,4 +1,4 @@
-const repo = 'japanese-srs-vocabulary'
+const repo = 'japanese-kanji'
 const assetPrefix = `/${repo}/`
 const basePath = `/${repo}`
 

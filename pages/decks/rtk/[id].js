@@ -1,13 +1,13 @@
-import Layout from "../../components/layout";
-import { getAllChaptersId, getChapterData } from "../../lib/chapters";
-import utilStyles from '../../styles/utils.module.css';
-import CardStyles from '../../styles/Card.module.css';
+import Layout from "../../../components/layout";
+import { getAllDecksRoutes, getDeckData } from "../../../lib/decks";
+import utilStyles from '../../../styles/utils.module.css';
+import CardStyles from '../../../styles/Card.module.css';
 import { useState } from "react";
 import arrayShuffle from "array-shuffle";
 
-export default function Chapter({ chapterData }) {
+export default function Deck({ deckData }) {
   const [currentIndex, setIndex] = useState(0)
-  const [items, setItems] = useState(chapterData.kanji)
+  const [items, setItems] = useState(deckData.kanji)
   const [showAnswer, setShowAnswer] = useState(false)
 
   const handleNext = () => {
@@ -36,8 +36,8 @@ export default function Chapter({ chapterData }) {
   return (
     <Layout>
       <section className={`${utilStyles.padding1rem} ${CardStyles.header}`}>
-        <span className={CardStyles.title}>{chapterData.name}</span>
-        <span className={CardStyles.description}>Chapitre {chapterData.id}</span>
+        <span className={CardStyles.title}>{deckData.name}</span>
+        {/* <span className={CardStyles.description}>Chapitre {deckData.id}</span> */}
       </section>
       <section className={`${utilStyles.padding1rem}`}>
       <div style={{ display: 'flex', justifyContent: 'center'}}>
@@ -109,16 +109,16 @@ export default function Chapter({ chapterData }) {
 }
 
 export async function getStaticProps({ params }) {
-  const chapterData = await getChapterData(params.id);
+  const deckData = await getDeckData("rtk", params.id);
   return {
     props: {
-      chapterData,
+      deckData,
     }
   }
 }
 
 export async function getStaticPaths() {
-  const paths = await getAllChaptersId();
+  const paths = await getAllDecksRoutes();
   return {
     paths,
     fallback: false,

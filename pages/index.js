@@ -1,24 +1,23 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import Layout, { siteTitle } from '../components/layout';
-import { getAllChapters } from '../lib/chapters';
+import { getAllDecks } from '../lib/decks';
 import utilStyles from '../styles/utils.module.css';
 import DeckStyles from '../styles/Deck.module.css';
 
-function Deck({id, name}) {
+function Deck({ deck }) {
   return (
-    <Link href={`/chapters/${id}`}>
+    <Link href={`/decks/${deck.folder}/${deck.id}`}>
       <div className={DeckStyles.container}>
-          {name}
+          {deck.name}
         <br />
-          Chapitre {id}
-        <br />
+          {deck.method} {deck.chapter && <span> - Chapitre {deck.chapter} </span>}
       </div>
     </Link>
   )
 }
 
-export default function Home({ chapters }) {
+export default function Home({ decks }) {
   return (
     <Layout home>
       <Head>
@@ -26,9 +25,9 @@ export default function Home({ chapters }) {
       </Head>
       <section className={`${utilStyles.heading}`}>
         <ul>
-          {chapters.map(({ id, name }) => (
-            <li key={id}>
-              <Deck id={id} name={name} />
+          {decks.map(deck => (
+            <li key={`${deck.folder}/${deck.id}`}>
+              <Deck deck={deck} />
             </li>
           ))}
         </ul>
@@ -40,7 +39,7 @@ export default function Home({ chapters }) {
 export async function getStaticProps() {
   return {
     props: {
-      chapters: await getAllChapters(),
+      decks: await getAllDecks(),
     }
   }
 }
