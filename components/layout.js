@@ -2,7 +2,7 @@ import Head from 'next/head';
 import styles from './layout.module.css';
 import Link from 'next/link';
 
-export const siteTitle = 'RTK as SRS';
+export const siteTitle = 'SRS - Vocabulaire';
 
 export default function Layout({ children, home }) {
   return (
